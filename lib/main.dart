@@ -56,7 +56,6 @@ class _RandomWordsState extends State<RandomWords> {
     return new ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
-        print('MMMMMMMMMMMMMMM' + i.toString());
         if (i.isOdd) return new Divider();
         final index = i ~/ 2;
         print(index);
@@ -71,9 +70,8 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+//    第五步
     final alreadySaved = _saved.contains(pair);
-    print(alreadySaved.toString() + '>>>alreadySaved');
-    print(pair.asPascalCase);
     return new ListTile(
       title: new Text(
         pair.asPascalCase,
@@ -103,8 +101,37 @@ class _RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Dahei'),
+        actions: <Widget>[new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)],
       ),
       body: _buildSuggestions(),
+    );
+  }
+
+  void _pushSaved(){
+    print('FFFFFF');
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context){
+        final tiles = _saved.map((pair){
+          return new ListTile(
+              title: new Text(
+                  pair.asPascalCase,
+                style: _biggerFont,
+              )
+          );
+        });
+        print(tiles.toString() + '>>>>>>tiles');
+        final divided = ListTile.divideTiles(
+          context: context,
+          tiles: tiles
+        ).toList();
+        print(divided.toString() + '>>>>divided');
+        return new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Saved Suggestions'),
+          ),
+          body: new ListView(children: divided)
+        );
+      })
     );
   }
 }
