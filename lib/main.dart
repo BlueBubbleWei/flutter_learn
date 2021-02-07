@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
 //      final wordPair = new WordPair.random();
     return new MaterialApp(
       title: 'Welcome to Flutter',
+      theme: new ThemeData(
+        primaryColor: Colors.pink
+      ),
 //          第四步
       home: new RandomWords(),
 //        home: new Scaffold(
